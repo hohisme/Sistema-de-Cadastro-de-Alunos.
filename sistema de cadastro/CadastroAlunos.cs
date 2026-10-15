@@ -6,41 +6,32 @@ namespace sistema_de_cadastro
 {
     internal class CadastroAlunos
     {
-        private Aluno[] alunos = new Aluno[100];
-        private int quantidade = 0;
+        private List<Aluno> alunos = new List<Aluno>();
+
+
 
         public void Adicionar(Aluno novoAluno)
         {
-            if (quantidade < alunos.Length)
-            {
-                alunos[quantidade] = novoAluno;
-                quantidade++;
-            }
-            else
-            {
-                Console.WriteLine("Não é possível adicionar mais alunos. Limite atingido.");
-            }
+            alunos.Add(novoAluno);
         }
+
         public void Listar()
         {
-            for (int i = 0; i < quantidade; i++)
+            for (int i = 0; i < alunos.Count; i++)
             {
                 Console.WriteLine($"Nome: {alunos[i].Nome}, Idade: {alunos[i].Idade}, Nota: {alunos[i].Nota}");
             }
         }
 
+
+
         public void Remover(string nome)
         {
-            for (int i = 0; i < quantidade; i++)
+            for (int i = 0; i < alunos.Count; i++)
             {
                 if (alunos[i].Nome.Equals(nome, StringComparison.OrdinalIgnoreCase))
                 {
-                    for (int j = i; j < quantidade - 1; j++)
-                    {
-                        alunos[j] = alunos[j + 1];
-                    }
-                    alunos[quantidade - 1] = null;
-                    quantidade--;
+                    alunos.RemoveAt(i); 
                     Console.WriteLine($"Aluno {nome} removido com sucesso.");
                     return;
                 }
@@ -51,7 +42,7 @@ namespace sistema_de_cadastro
         public void Atualizar(string nome, Aluno alunoAtualizado)
         {
             string nomeBusca = nome.Trim();
-            for (int i = 0; i < quantidade; i++)
+            for (int i = 0; i < alunos.Count; i++)
             {
                 if (alunos[i].Nome.Trim().Equals(nomeBusca, StringComparison.OrdinalIgnoreCase))
                 {
